@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import CartProvider from './Store/CartProvider'
+import Header from './components/Header'
+import MedicineForm from './components/MedicineForm'
+import MedicineList from './components/MedicineList'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react'
 
 function App() {
+     const [medicines, setMedicines] = useState([]);
+     
+     const addMedicineHandler = (medicine) => {
+       setMedicines((prevMedicines) => [...prevMedicines, medicine]);
+
+     };
+
+     
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CartProvider>
+       <Header />
+       <MedicineForm  onAddMedicine={addMedicineHandler}/>
+       <MedicineList medicines={medicines} />
+    </CartProvider>
+      
   );
 }
 
-export default App;
+export default App
